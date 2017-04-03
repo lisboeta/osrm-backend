@@ -15,11 +15,13 @@ namespace files
 {
 
 // reads .osrm.hsgr file
-template <bool UseSharedMemory>
-inline void readGraph(const boost::filesystem::path &path,
-                      unsigned &checksum,
-                      detail::QueryGraph<UseSharedMemory> &graph)
+template <typename QueryGraphT>
+inline void readGraph(const boost::filesystem::path &path, unsigned &checksum, QueryGraphT &graph)
 {
+    static_assert(std::is_same<detail::QueryGraph<true>, QueryGraphT>::value ||
+                  std::is_same<detail::QueryGraph<false>, QueryGraphT>::value,
+                  "QueryGraphT must be of template type QueryGraph<>");
+
     const auto fingerprint = storage::io::FileReader::VerifyFingerprint;
     storage::io::FileReader reader{path, fingerprint};
 
@@ -28,11 +30,14 @@ inline void readGraph(const boost::filesystem::path &path,
 }
 
 // writes .osrm.hsgr file
-template <bool UseSharedMemory>
+template <typename QueryGraphT>
 inline void writeGraph(const boost::filesystem::path &path,
                        unsigned checksum,
-                       const detail::QueryGraph<UseSharedMemory> &graph)
+                       const QueryGraphT &graph)
 {
+    static_assert(std::is_same<detail::QueryGraph<true>, QueryGraphT>::value ||
+                  std::is_same<detail::QueryGraph<false>, QueryGraphT>::value,
+                  "QueryGraphT must be of template type QueryGraphT<>");
     const auto fingerprint = storage::io::FileWriter::GenerateFingerprint;
     storage::io::FileWriter writer{path, fingerprint};
 

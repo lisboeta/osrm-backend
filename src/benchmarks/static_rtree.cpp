@@ -27,8 +27,7 @@ constexpr int32_t WORLD_MIN_LON = -180 * COORDINATE_PRECISION;
 constexpr int32_t WORLD_MAX_LON = 180 * COORDINATE_PRECISION;
 
 using RTreeLeaf = extractor::EdgeBasedNode;
-using BenchStaticRTree =
-    util::StaticRTree<RTreeLeaf, false>;
+using BenchStaticRTree = util::StaticRTree<RTreeLeaf, false>;
 
 std::vector<util::Coordinate> loadCoordinates(const boost::filesystem::path &nodes_file)
 {

@@ -40,10 +40,7 @@ constexpr uint32_t TEST_BRANCHING_FACTOR = 8;
 constexpr uint32_t TEST_LEAF_NODE_SIZE = 64;
 
 using TestData = extractor::EdgeBasedNode;
-using TestStaticRTree = StaticRTree<TestData,
-                                    false,
-                                    TEST_BRANCHING_FACTOR,
-                                    TEST_LEAF_NODE_SIZE>;
+using TestStaticRTree = StaticRTree<TestData, false, TEST_BRANCHING_FACTOR, TEST_LEAF_NODE_SIZE>;
 using MiniStaticRTree = StaticRTree<TestData, false, 2, 128>;
 
 // Choosen by a fair W20 dice roll (this value is completely arbitrary)
